@@ -1,0 +1,90 @@
+/* defines sound color animation */
+@keyframes soundColorAnimation {
+	0% {
+		--sound-color: #ff0000;
+	}
+
+	25% {
+		--sound-color: #ffff00;
+	}
+
+	50% {
+		--sound-color: #00ff00;
+	}
+
+	75% {
+		--sound-color: #00bdff;
+	}
+
+	100% {
+		--sound-color: #ff00ff;
+	}
+}
+
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: #000;
+	position: relative;
+}
+
+.sound-wave,
+.sound-wave::after,
+.sound::after,
+.sound {
+	display: block;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.sound-wave {
+	background-image: paint(sound);
+	background-size: 300% 300%;
+}
+
+/* First wave */
+.sound-wave:nth-child(1) {
+	background-position-x: left;
+
+	/* applies hot gradient on sound wave */
+	&::after {
+		content: '';
+		background-image: linear-gradient(to right, rgba(244,67,54, 0.8), rgba(255,156,0, 0.8), rgba(255,192,0, 0.8), rgba(255,217,102, 0.8));
+		mix-blend-mode: multiply;
+	}
+}
+
+/* Second wave */
+.sound-wave:nth-child(2) {
+	background-position-x: right;
+
+	/* applies cold gradient on sound wave */
+	&::after {
+		content: '';
+		background-image: linear-gradient(to left, rgba(255, 0, 154, 0.8), rgba(0, 255, 230, 0.8), rgba(0, 142, 255, 0.8), rgba(42, 0, 255, 0.8));
+		mix-blend-mode: multiply;
+	}
+}
+
+/* Third wave, highlights previous sound waves intersections */
+.sound-wave:nth-child(3) {
+	/* animates highlighting color */
+	animation: 5s linear infinite soundColorAnimation;
+	background-size: 250% 250%;
+	background-position: center;
+	mix-blend-mode: color-dodge;
+}
+
+/* applies mask that hides left/right edges of visualisation */
+.sound::after {
+	content: '';
+	background-image: linear-gradient(to right, rgb(0,0,0) 0%, rgba(0,0,0,0) 20%, rgba(0,0,0,0) 80%, rgb(0,0,0) 100%);
+	z-index: 2;
+}
