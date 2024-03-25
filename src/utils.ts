@@ -1,2 +1,2 @@
-export const SOUND_INTENSITY = '--sound-intensity';
+export const SOUND_DATA = '--sound-data';
 export const SOUND_COLOR = '--sound-color';

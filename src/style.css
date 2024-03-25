@@ -46,7 +46,8 @@ html, body {
 
 .sound-wave {
 	background-image: paint(sound);
-	background-size: 300% 300%;
+	image-rendering: smooth;
+	background-size: 115% 80%;
 }
 
 /* First wave */
@@ -77,7 +78,7 @@ html, body {
 .sound-wave:nth-child(3) {
 	/* animates highlighting color */
 	animation: 5s linear infinite soundColorAnimation;
-	background-size: 250% 250%;
+	background-size: 100% 70%;
 	background-position: center;
 	mix-blend-mode: color-dodge;
 }

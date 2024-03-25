@@ -1,4 +1,5 @@
-import {SOUND_COLOR, SOUND_INTENSITY} from './utils.ts';
+import {SOUND_COLOR, SOUND_DATA} from './utils.ts';
+import paintWorkletUrl from './paint.ts?worker&url';
 
 async function getAudioAnalyser(mediaStream: MediaStream): Promise<AnalyserNode> {
 	// Audio Web API primary paradigm is of an audio graph, where a number of AudioNodes are connected together to define the overall audio rendering.
@@ -26,8 +27,8 @@ async function getAudioAnalyser(mediaStream: MediaStream): Promise<AnalyserNode>
  */
 function runWithRequestAnimationFrame(callback: () => void): void {
 	requestAnimationFrame(() => {
-		callback();
 		runWithRequestAnimationFrame(callback)
+		callback();
 	});
 }
 
@@ -48,16 +49,16 @@ function registerCSSProperty(name: string, syntax = '*', initialValue?: string):
 	const audioDbData = new Float32Array(audioAnalyser.fftSize);
 
 	// register css properties
-	registerCSSProperty(SOUND_INTENSITY, '*');
 	registerCSSProperty(SOUND_COLOR, '<color>', '#fff');
+	registerCSSProperty(SOUND_DATA, '*');
 
 	// add paint worklet
-	await CSS.paintWorklet.addModule(new URL('./paint.ts', import.meta.url));
+	await CSS.paintWorklet.addModule(paintWorkletUrl);
 
 	runWithRequestAnimationFrame(() => {
 		// audio waveform, is a time domain display of sound amplitude/intensity (decibels dB) in a range -1 to 1.
 		audioAnalyser.getFloatTimeDomainData(audioDbData);
 		// update sound intensity data
-		document.body.style.setProperty(SOUND_INTENSITY, audioDbData.join(','));
+		document.body.style.setProperty(SOUND_DATA, audioDbData.join(','));
 	});
 }().then());
