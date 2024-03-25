@@ -1,4 +1,5 @@
 import {SOUND_COLOR, SOUND_INTENSITY} from './utils.ts';
+import paintWorkletUrl from './paint.ts?worker&url';
 
 async function getAudioAnalyser(mediaStream: MediaStream): Promise<AnalyserNode> {
 	// Audio Web API primary paradigm is of an audio graph, where a number of AudioNodes are connected together to define the overall audio rendering.
@@ -52,7 +53,7 @@ function registerCSSProperty(name: string, syntax = '*', initialValue?: string):
 	registerCSSProperty(SOUND_COLOR, '<color>', '#fff');
 
 	// add paint worklet
-	await CSS.paintWorklet.addModule(new URL('./paint.ts', import.meta.url));
+	await CSS.paintWorklet.addModule(paintWorkletUrl);
 
 	runWithRequestAnimationFrame(() => {
 		// audio waveform, is a time domain display of sound amplitude/intensity (decibels dB) in a range -1 to 1.

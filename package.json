@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build --minify false --outDir dist --base \"\" --assetsInlineLimit 0",
     "preview": "vite preview"
   },
   "devDependencies": {
