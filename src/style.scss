@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+
+/* defines sound color animation */
+@keyframes soundColorAnimation {
+	0% {
+		--sound-color: #ff0000;
+	}
+
+	25% {
+		--sound-color: #ffff00;
+	}
+
+	50% {
+		--sound-color: #00ff00;
+	}
+
+	75% {
+		--sound-color: #00bdff;
+	}
+
+	100% {
+		--sound-color: #ff00ff;
+	}
+}
+
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: #000;
+	overflow: hidden;
+}
+
+.slide {
+	position: relative;
+	z-index: 6;
+	display: flex;
+	gap: 5vw;
+	padding: min(10vw, 10vh);
+	color: #fff;
+
+	strong, code {
+		color: #04a1ff;
+		font-weight: inherit;
+	}
+
+	@media (max-width: 1280px) {
+		& {
+			flex-direction: column;
+		}
+	}
+
+	&__main {
+		flex: 1;
+	}
+
+	&__aside {
+		width: min(30vw, 60vh);
+	}
+
+	&__title {
+		margin-top: 0;
+		font-size: min(10vh, 5vw);
+		font-family: 'Arial Black', sans-serif;
+	}
+}
+
+.recap {
+	&__list {
+		display: flex;
+		flex-direction: column;
+		gap: 5vh;
+		font-family: Arial, sans-serif;
+		font-size: min(5vh, 3vw);
+		line-height: 1.2;
+	}
+}
+
+.qr-code {
+	display: flex;
+	flex-direction: column;
+	gap: 5vh;
+	position: relative;
+
+	&__image {
+		width: 100%;
+	}
+
+	&__caption {
+		font-family: 'Indie Flower', cursive;
+		font-size: min(5vh, 2vw);
+		transform: translateX(-2vw);
+
+		&:before {
+			display: block;
+			content: '';
+			position: absolute;
+			bottom: -10%;
+			right: 110%;
+			width: min(15vw, 15vh);
+			height: min(15vw, 15vh);
+			background-image: url('../assets/arrow.svg');
+			background-size: contain;
+			transform: rotate(115deg);
+			transform-origin: right;
+		}
+	}
+}
+
+.sound {
+	display: block;
+	position: absolute;
+	top: 50%;
+	width: 100%;
+	height: 100%;
+
+	&-wave,
+	&-wave::after,
+	&::after {
+		display: block;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		width: 100%;
+		height: 100%;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+
+	/* applies mask that hides left/right edges of visualisation */
+	&::after {
+		content: '';
+		background-image: linear-gradient(to right, rgb(0,0,0) 0%, rgba(0,0,0,0) 20%, rgba(0,0,0,0) 80%, rgb(0,0,0) 100%);
+		z-index: 2;
+	}
+
+	&-wave {
+		background-image: paint(sound);
+		background-size: 150% 90%;
+		image-rendering: smooth;
+
+		/* First wave */
+		&:nth-child(1) {
+			background-position-x: left;
+
+			/* applies hot gradient on sound wave */
+			&::after {
+				content: '';
+				z-index: 3;
+				background-image: linear-gradient(to right, rgba(244,67,54, 0.8), rgba(255,156,0, 0.8), rgba(255,192,0, 0.8), rgba(255,217,102, 0.8));
+				mix-blend-mode: multiply;
+			}
+		}
+
+		/* Second wave */
+		&:nth-child(2) {
+			background-position-x: right;
+
+			/* applies cold gradient on sound wave */
+			&::after {
+				content: '';
+				background-image: linear-gradient(to left, rgba(255, 0, 154, 0.8), rgba(0, 255, 230, 0.8), rgba(0, 142, 255, 0.8), rgba(42, 0, 255, 0.8));
+				mix-blend-mode: multiply;
+			}
+		}
+
+		/* Third wave, highlights previous sound waves intersections */
+		&:nth-child(3) {
+			z-index: 5;
+			/* animates highlighting color */
+			animation: 5s linear infinite soundColorAnimation;
+			background-size: 100% 70%;
+			background-position: center;
+			mix-blend-mode: color-dodge;
+		}
+	}
+}

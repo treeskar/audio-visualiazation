@@ -27,8 +27,8 @@ async function getAudioAnalyser(mediaStream: MediaStream): Promise<AnalyserNode>
  */
 function runWithRequestAnimationFrame(callback: () => void): void {
 	requestAnimationFrame(() => {
+		runWithRequestAnimationFrame(callback);
 		callback();
-		runWithRequestAnimationFrame(callback)
 	});
 }
 
@@ -49,8 +49,8 @@ function registerCSSProperty(name: string, syntax = '*', initialValue?: string):
 	const audioDbData = new Float32Array(audioAnalyser.fftSize);
 
 	// register css properties
-	registerCSSProperty(SOUND_INTENSITY, '*');
 	registerCSSProperty(SOUND_COLOR, '<color>', '#fff');
+	registerCSSProperty(SOUND_INTENSITY, '*');
 
 	// add paint worklet
 	await CSS.paintWorklet.addModule(paintWorkletUrl);

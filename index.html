@@ -4,16 +4,43 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-	<link rel="stylesheet" href="/src/style.css">
+	<link rel="stylesheet" href="/src/style.scss">
 	<title>Audio Visualizer</title>
 </head>
 <body>
+	<main class="slide">
+		<section class="slide__main">
+			<h1 class="slide__title">A Quick Recap</h1>
+			<ul class="recap__list">
+				<li class="recap__item">
+					<strong>Worklet</strong> is a <strong>lightweight</strong> version of Web <strong>Workers</strong>
+				</li>
+				<li class="recap__item">
+					Web Audio works as a direct <strong>audio processing graph</strong>.
+				</li>
+				<li class="recap__item">
+					<strong>Painting API</strong> allows to <strong>create custom</strong>
+					<code>&lt;image&gt;</code>
+					function and then apply it to CSS properties.
+				</li>
+			</ul>
+		</section>
+		<aside class="slide__aside">
+			<figure class="qr-code">
+				<img class="qr-code__image" src="./assets/qr-code.png" alt="QR Code">
+				<figcaption class="qr-code__caption">
+					BTW all code is here
+				</figcaption>
+			</figure>
+		</aside>
+	</main>
+
+	<!-- Sound Visualization-->
 	<span class="sound">
 		<span class="sound-wave"></span>
 		<span class="sound-wave"></span>
 		<span class="sound-wave"></span>
 	</span>
-
 	<script type="module" src="/src/main.ts"></script>
 </body>
 </html>

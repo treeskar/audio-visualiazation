@@ -22,11 +22,9 @@ class SoundPainter implements PaintProcessor {
 		// x scale maps item index to a "x" coordinate on canvas
 		const xScale = d3.scaleLinear([0, length - 1], [0, size.width]);
 		// in order to render area shape we need two y coordinates
-		const minY = size.height;
-		const maxY = 0;
 		// y scale maps sound intensity value to a "y" coordinate on canvas
-		const y0Scale = d3.scaleLinear([-1, 1], [minY, maxY]);
-		const y1Scale = d3.scaleLinear([-1, 1], [maxY, minY]);
+		const y0Scale = d3.scaleLinear([-1, 1], [size.height, 0]);
+		const y1Scale = d3.scaleLinear([-1, 1], [0, size.height]);
 
 		return d3
 			.area<number>()

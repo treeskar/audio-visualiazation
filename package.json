@@ -11,6 +11,7 @@
   "devDependencies": {
     "@types/audioworklet": "^0.0.50",
     "@types/d3": "^7.4.1",
+    "sass": "^1.72.0",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
   },
