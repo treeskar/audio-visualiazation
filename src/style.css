@@ -8,3 +8,30 @@ html, body {
 html {
 	background-color: #000;
 }
+
+@keyframes rainbowAnimation {
+	0% {
+		--sound-color: red;
+	}
+
+	25% {
+		--sound-color: yellow;
+	}
+
+	50% {
+		--sound-color: green;
+	}
+
+	75% {
+		--sound-color: blue;
+	}
+
+	100% {
+		--sound-color: purple;
+	}
+}
+
+body {
+	animation: rainbowAnimation 30s infinite;
+	background: center / 300px 150px space paint(sound), paint(sound);
+}
